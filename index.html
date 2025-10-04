@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mcaddon - Resources Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f1419;
+            color: #e1e8ed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #38bdf8;
+            object-fit: cover;
+        }
+
+        .profile-info h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            color: #e1e8ed;
+            font-weight: 600;
+        }
+
+        .profile-info p {
+            color: #8899a6;
+            font-size: 1em;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            font-weight: 300;
+        }
+
+        .search-section {
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .search-wrapper {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .search-input-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 50px 16px 24px;
+            font-size: 15px;
+            border: 1px solid #2f3336;
+            border-radius: 12px;
+            background: #16181c;
+            color: #e1e8ed;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #38bdf8;
+            background: #1c1f23;
+        }
+
+        .search-input::placeholder {
+            color: #6e767d;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6e767d;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            display: none;
+            transition: color 0.2s;
+        }
+
+        .clear-btn.active {
+            display: block;
+        }
+
+        .clear-btn:hover {
+            color: #e1e8ed;
+        }
+
+        .search-btn {
+            padding: 16px 32px;
+            background: #38bdf8;
+            color: #0f1419;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-btn:hover {
+            background: #5ecfff;
+        }
+
+        .search-icon {
+            font-size: 18px;
+        }
+
+        .search-description {
+            text-align: center;
+            color: #6e767d;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin: 50px 0 25px;
+            color: #e1e8ed;
+            font-weight: 600;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #2f3336;
+        }
+
+        .links-section {
+            background: #16181c;
+            border: 1px solid #2f3336;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .link-card {
+            background: #1c1f23;
+            border: 1px solid #2f3336;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+
+        .link-card:hover {
+            border-color: #38bdf8;
+            background: #22262b;
+        }
+
+        .link-card h3 {
+            color: #38bdf8;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .link-card p {
+            color: #8899a6;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #38bdf8;
+            color: #0f1419;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .link-button:hover {
+            background: #5ecfff;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .resource-box {
+            background: #16181c;
+            border: 1px solid #2f3336;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .resource-box:hover {
+            border-color: #38bdf8;
+            background: #1c1f23;
+        }
+
+        .resource-box-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #e1e8ed;
+        }
+
+        .resource-item {
+            background: #1c1f23;
+            border: 1px solid #2f3336;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .resource-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .resource-item:hover {
+            border-color: #38bdf8;
+            background: #22262b;
+        }
+
+        .resource-item-name {
+            font-size: 1em;
+            color: #38bdf8;
+            font-weight: 500;
+        }
+
+        .resource-item-icon {
+            color: #6e767d;
+            font-size: 1.2em;
+        }
+
+        .video-tag {
+            font-size: 0.8em;
+            color: #6e767d;
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: #0f1419;
+            border-radius: 6px;
+            word-break: break-all;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #16181c;
+            border: 1px solid #2f3336;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6e767d;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+        }
+
+        .modal-close:hover {
+            color: #e1e8ed;
+        }
+
+        .unlock-btn {
+            padding: 14px 48px;
+            background: #38bdf8;
+            color: #0f1419;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .unlock-btn:hover {
+            background: #5ecfff;
+        }
+
+        .countdown {
+            font-size: 3.5em;
+            color: #38bdf8;
+            margin: 20px 0;
+            font-weight: 700;
+        }
+
+        .unlock-message {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #8899a6;
+        }
+
+        .resource-link-btn {
+            display: inline-block;
+            padding: 14px 40px;
+            background: #38bdf8;
+            color: #0f1419;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .resource-link-btn:hover {
+            background: #5ecfff;
+        }
+
+        .resource-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .copy-btn {
+            background: #10b981;
+        }
+
+        .copy-btn:hover {
+            background: #34d399;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6e767d;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .profile-info h1 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.3em;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-wrapper {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="profile-section">
+                <img src="https://yt3.googleusercontent.com/ytc/AIdro_n7VQ8VQJxqKZX8Q8VQJxqKZX8Q8VQJxqKZX8Q8VQJxq=s160-c-k-c0x00ffffff-no-rj" alt="Mcaddon" class="profile-img" onerror="this.style.display='none'">
+                <div class="profile-info">
+                    <h1>Mcaddon Resource Links</h1>
+                    <p>minecraft youtuber</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="search-section">
+            <div class="search-wrapper">
+                <div class="search-input-container">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="searchInput" 
+                        placeholder="Paste YouTube video link here..."
+                    >
+                    <button class="clear-btn" id="clearBtn">✕</button>
+                </div>
+                <button class="search-btn" id="searchBtn">
+                    <span class="search-icon">🔍</span>
+                    <span>Search</span>
+                </button>
+            </div>
+            <p class="search-description">
+                Paste your YouTube video link above and click search to find all related resources
+            </p>
+        </div>
+
+        <div id="sectionsContainer">
+            <div class="links-section" id="quickLinksSection">
+                <h2 class="section-title">Quick Links</h2>
+                <div class="links-grid" id="linksGrid"></div>
+            </div>
+
+            <div id="resourcesSection">
+                <h2 class="section-title">Available Resources</h2>
+                <div class="resources-grid" id="resourcesGrid"></div>
+                <div class="no-results hidden" id="noResults">No resources found for this video.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div id="unlockButtonState">
+                <p class="unlock-message">Click below to unlock the resource</p>
+                <p id="resourceNamePreview" style="font-size: 1.2em; color: #38bdf8; margin: 20px 0; font-weight: 600;"></p>
+                <button class="unlock-btn" id="unlockBtn">Unlock Resource</button>
+            </div>
+            <div id="countdownState" class="hidden">
+                <p class="unlock-message">Unlocking resource...</p>
+                <div class="countdown" id="countdown">15</div>
+                <p style="color: #6e767d;">seconds remaining</p>
+            </div>
+            <div id="unlockedState" class="hidden">
+                <p class="unlock-message" style="color: #38bdf8; font-weight: 600;">Resource Unlocked!</p>
+                <p id="resourceNameDisplay" style="font-size: 1.2em; color: #e1e8ed; margin: 20px 0; font-weight: 600;"></p>
+                <div class="resource-buttons">
+                    <a href="#" id="resourceLinkBtn" class="resource-link-btn" target="_blank">Open Link</a>
+                    <button id="copyLinkBtn" class="resource-link-btn copy-btn">Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // RESOURCES DATA - EASY TO UPDATE
+        // Structure: Each box can contain multiple resources
+        // ============================================
+        const resourcesData = [
+            {
+                search_link: "https://youtube.com/watch?v=example1",
+                home_page_name: "Minecraft Survival Series - Episode 1",
+                resources: [
+                    { resource_name: "World Download", resource_link: "https://example.com/world1" },
+                    { resource_name: "Texture Pack", resource_link: "https://example.com/texture1" },
+                    { resource_name: "Shader Settings", resource_link: "https://example.com/shader1" }
+                ]
+            },
+            {
+                search_link: "https://youtube.com/watch?v=example2",
+                home_page_name: "Custom Mod Showcase",
+                resources: [
+                    { resource_name: "Mod Download", resource_link: "https://example.com/mod2" },
+                    { resource_name: "Installation Guide", resource_link: "https://example.com/guide2" }
+                ]
+            },
+            {
+                search_link: "https://youtube.com/watch?v=example3",
+                home_page_name: "Build Tutorial Resources",
+                resources: [
+                    { resource_name: "Blueprint Download", resource_link: "https://example.com/blueprint3" },
+                    { resource_name: "Material List", resource_link: "https://example.com/materials3" },
+                    { resource_name: "Time-lapse Video", resource_link: "https://example.com/timelapse3" }
+                ]
+            }
+        ];
+
+        // ============================================
+        // QUICK LINKS DATA - EASY TO UPDATE
+        // ============================================
+        const quickLinks = [
+            { 
+                name: "YouTube Channel", 
+                description: "Subscribe for daily Minecraft content and tutorials",
+                link: "https://www.youtube.com/@Mcaddon" 
+            },
+            { 
+                name: "Discord Community", 
+                description: "Join our active community and get support",
+                link: "https://discord.gg/mcaddon" 
+            },
+            { 
+                name: "Instagram", 
+                description: "Behind the scenes content and updates",
+                link: "https://www.instagram.com/mcaddon" 
+            },
+            { 
+                name: "Twitter", 
+                description: "Latest news and announcements",
+                link: "https://twitter.com/mc_addon" 
+            }
+        ];
+
+        // ============================================
+        // APPLICATION LOGIC
+        // ============================================
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const resourcesGrid = document.getElementById('resourcesGrid');
+        const noResults = document.getElementById('noResults');
+        const linksGrid = document.getElementById('linksGrid');
+        const modal = document.getElementById('modal');
+        const modalClose = document.getElementById('modalClose');
+        const unlockButtonState = document.getElementById('unlockButtonState');
+        const unlockBtn = document.getElementById('unlockBtn');
+        const countdownState = document.getElementById('countdownState');
+        const countdown = document.getElementById('countdown');
+        const unlockedState = document.getElementById('unlockedState');
+        const resourceLinkBtn = document.getElementById('resourceLinkBtn');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const resourceNameDisplay = document.getElementById('resourceNameDisplay');
+        const resourceNamePreview = document.getElementById('resourceNamePreview');
+
+        let countdownInterval;
+        let currentResource = null;
+        let isSearching = false;
+
+        function displayResources(resources) {
+            resourcesGrid.innerHTML = '';
+            
+            if (resources.length === 0) {
+                resourcesGrid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            resourcesGrid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+
+            resources.forEach(box => {
+                const boxElement = document.createElement('div');
+                boxElement.className = 'resource-box';
+                
+                let resourceItemsHTML = '';
+                box.resources.forEach(resource => {
+                    resourceItemsHTML += `
+                        <div class="resource-item" data-resource='${JSON.stringify(resource)}'>
+                            <span class="resource-item-name">${resource.resource_name}</span>
+                            <span class="resource-item-icon">→</span>
+                        </div>
+                    `;
+                });
+                
+                boxElement.innerHTML = `
+                    <div class="resource-box-title">${box.home_page_name}</div>
+                    ${resourceItemsHTML}
+                    <div class="video-tag">Video: ${box.search_link}</div>
+                `;
+                
+                resourcesGrid.appendChild(boxElement);
+                
+                boxElement.querySelectorAll('.resource-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const resourceData = JSON.parse(item.getAttribute('data-resource'));
+                        openModal(resourceData);
+                    });
+                });
+            });
+        }
+
+        function displayQuickLinks() {
+            quickLinks.forEach(link => {
+                const linkCard = document.createElement('div');
+                linkCard.className = 'link-card';
+                linkCard.innerHTML = `
+                    <h3>${link.name}</h3>
+                    <p>${link.description}</p>
+                    <a href="${link.link}" target="_blank" class="link-button">Visit</a>
+                `;
+                linksGrid.appendChild(linkCard);
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            if (e.target.value.trim() !== '') {
+                clearBtn.classList.add('active');
+            } else {
+                clearBtn.classList.remove('active');
+            }
+        });
+
+        searchBtn.addEventListener('click', () => {
+            const searchValue = searchInput.value.trim().toLowerCase();
+
+            if (searchValue === '') {
+                return;
+            }
+
+            isSearching = true;
+            const filtered = resourcesData.filter(box => 
+                box.search_link.toLowerCase().includes(searchValue)
+            );
+            displayResources(filtered);
+            
+            // Move resources section above quick links
+            const container = document.getElementById('sectionsContainer');
+            const resourcesSection = document.getElementById('resourcesSection');
+            const quickLinksSection = document.getElementById('quickLinksSection');
+            container.insertBefore(resourcesSection, quickLinksSection);
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearBtn.classList.remove('active');
+            isSearching = false;
+            displayResources(resourcesData);
+            
+            // Move resources section back below quick links
+            const container = document.getElementById('sectionsContainer');
+            const resourcesSection = document.getElementById('resourcesSection');
+            const quickLinksSection = document.getElementById('quickLinksSection');
+            container.insertBefore(quickLinksSection, resourcesSection);
+        });
+
+        function openModal(resource) {
+            currentResource = resource;
+            modal.classList.add('active');
+            unlockButtonState.classList.remove('hidden');
+            countdownState.classList.add('hidden');
+            unlockedState.classList.add('hidden');
+            resourceNamePreview.textContent = resource.resource_name;
+        }
+
+        unlockBtn.addEventListener('click', () => {
+            unlockButtonState.classList.add('hidden');
+            countdownState.classList.remove('hidden');
+            
+            let timeLeft = 15;
+            countdown.textContent = timeLeft;
+
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                countdown.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownState.classList.add('hidden');
+                    unlockedState.classList.remove('hidden');
+                    resourceNameDisplay.textContent = currentResource.resource_name;
+                    resourceLinkBtn.href = currentResource.resource_link;
+                }
+            }, 1000);
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            clearInterval(countdownInterval);
+            unlockButtonState.classList.remove('hidden');
+            countdownState.classList.add('hidden');
+            unlockedState.classList.add('hidden');
+            countdown.textContent = '15';
+            currentResource = null;
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        copyLinkBtn.addEventListener('click', () => {
+            if (currentResource && currentResource.resource_link) {
+                navigator.clipboard.writeText(currentResource.resource_link).then(() => {
+                    const originalText = copyLinkBtn.textContent;
+                    copyLinkBtn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyLinkBtn.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyLinkBtn.textContent = 'Failed!';
+                    setTimeout(() => {
+                        copyLinkBtn.textContent = 'Copy';
+                    }, 2000);
+                });
+            }
+        });
+
+        displayResources(resourcesData);
+        displayQuickLinks();
+    </script>
+</body>
+</html>
